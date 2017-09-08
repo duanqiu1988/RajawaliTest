@@ -38,6 +38,7 @@ public class GameObj extends Plane {
             }
         }
         setMaterial(mMaterial);
+        setTransparent(true);
         position(x, y);
     }
 

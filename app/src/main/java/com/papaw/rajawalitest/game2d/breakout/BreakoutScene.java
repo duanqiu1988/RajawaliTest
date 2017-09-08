@@ -84,10 +84,11 @@ public class BreakoutScene extends GameScene {
                 new Color(1),
                 new Texture("ball", R.drawable.awesomeface),
                 ballVelocityX, ballVelocityY);
-        addChild(ball);
-        addChild(paddle);
-        addChildren(level.blocks);
+
         addChild(bg);
+        addChildren(level.blocks);
+        addChild(paddle);
+        addChild(ball);
     }
 
     @Override

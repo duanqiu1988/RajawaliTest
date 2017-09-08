@@ -5,8 +5,10 @@ import android.util.Log;
 import com.papaw.rajawalitest.game2d.Color;
 import com.papaw.rajawalitest.game2d.GameObj;
 
+import org.rajawali3d.bounds.BoundingBox;
 import org.rajawali3d.bounds.IBoundingVolume;
 import org.rajawali3d.materials.textures.ATexture;
+import org.rajawali3d.math.vector.Vector3;
 
 /**
  * Created by duanjunjie on 17-8-10.
@@ -53,10 +55,27 @@ public class Ball extends GameObj {
 
         IBoundingVolume bbox2 = obj.getGeometry().getBoundingBox();
         bbox2.transform(obj.getModelMatrix());
-        boolean collision = bbox.intersectsWith(bbox2);
-        Log.d(TAG, "checkCollision mVelocityY " + mVelocityY + ", collision " + collision);
-        if (collision) {
+        boolean collision = intersectsWith((BoundingBox) bbox, (BoundingBox) bbox2);
+        Log.d(TAG, "checkCollision mVelocityY " + mVelocityY + ", collision " + collision + ", y " + mPosition.y);
+        if (collision && mVelocityY < 0) {
             mVelocityY *= -1;
+            if (mPosition.y < obj.getY() + mHeight) {
+                mPosition.y = obj.getY() + mHeight;
+            }
         }
+    }
+
+    public static boolean intersectsWith(BoundingBox boundingBox, BoundingBox otherBoundingBox) {
+        if (!(boundingBox instanceof BoundingBox
+                && otherBoundingBox instanceof BoundingBox)) {
+            return false;
+        }
+        Vector3 otherMin = otherBoundingBox.getTransformedMin();
+        Vector3 otherMax = otherBoundingBox.getTransformedMax();
+        Vector3 min = boundingBox.getTransformedMin();
+        Vector3 max = boundingBox.getTransformedMax();
+
+        return (min.x < otherMax.x) && (max.x > otherMin.x) &&
+                (min.y < otherMax.y) && (max.y > otherMin.y);
     }
 }

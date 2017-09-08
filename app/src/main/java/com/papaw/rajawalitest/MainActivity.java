@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         textureView = (RajawaliTextureView) findViewById(R.id.rajwali_surface);
         game = new Game(this);
         textureView.setSurfaceRenderer(game.getRenderer());
+//        textureView.setSurfaceRenderer(new TestRenderer(this));
     }
 
     @Override
