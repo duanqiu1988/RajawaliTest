@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.MotionEvent;
 
 import com.papaw.rajawalitest.R;
-import com.papaw.rajawalitest.game2d.breakout.BreakoutMaterial;
 
 import org.rajawali3d.cameras.Camera2D;
 import org.rajawali3d.materials.Material;
@@ -25,7 +24,7 @@ public class TestRenderer extends RajawaliRenderer {
     @Override
     protected void initScene() {
         Plane plane = new Plane(0.3f, 0.3f, 1, 1);
-        Material material = new BreakoutMaterial();
+        Material material = new Game2DMaterial();
         material.setColor(new float[]{1, 1, 1});
         try {
             material.addTexture(new Texture("ball", R.drawable.awesomeface));
@@ -36,7 +35,7 @@ public class TestRenderer extends RajawaliRenderer {
         }
 
         Plane plane2 = new Plane(0.3f, 0.3f, 1, 1);
-        Material material2 = new BreakoutMaterial();
+        Material material2 = new Game2DMaterial();
         material2.setColor(new float[]{1, 1, 1});
         try {
             material2.addTexture(new Texture("background", R.drawable.background));

@@ -1,7 +1,6 @@
 package com.papaw.rajawalitest.game2d;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.papaw.rajawalitest.game2d.breakout.BreakoutScene;
 
@@ -25,7 +24,6 @@ public class Game {
     }
 
     private void init() {
-        Log.d(TAG, "init");
         renderer.addAndSwitchScene(new BreakoutScene(Game.this.context, renderer));
     }
 

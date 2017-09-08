@@ -1,4 +1,4 @@
-package com.papaw.rajawalitest.game2d.breakout;
+package com.papaw.rajawalitest.game2d;
 
 import android.opengl.GLES20;
 
@@ -10,8 +10,8 @@ import org.rajawali3d.materials.shaders.VertexShader;
 import org.rajawali3d.util.RawShaderLoader;
 
 
-public class BreakoutMaterial extends Material {
-    public BreakoutMaterial() {
+public class Game2DMaterial extends Material {
+    public Game2DMaterial() {
         super();
         mCustomVertexShader = new MinimalVertexShader();
         mCustomFragmentShader = new ColorFragmentShader();

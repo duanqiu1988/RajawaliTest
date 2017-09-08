@@ -1,20 +1,14 @@
 package com.papaw.rajawalitest.game2d.breakout;
 
 import android.content.Context;
-import android.os.Handler;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 
 import com.papaw.rajawalitest.R;
-import com.papaw.rajawalitest.game2d.ASceneFrameAdapter;
 import com.papaw.rajawalitest.game2d.Color;
 import com.papaw.rajawalitest.game2d.GameObj;
 import com.papaw.rajawalitest.game2d.GameScene;
-import com.papaw.rajawalitest.game2d.OnGestureAdapter;
 
 import org.rajawali3d.materials.textures.Texture;
 import org.rajawali3d.renderer.RajawaliRenderer;
-import org.rajawali3d.scene.ASceneFrameCallback;
 
 /**
  * Created by duanjunjie on 17-8-10.
@@ -33,37 +27,10 @@ public class BreakoutScene extends GameScene {
     private static float ballRadius = 0.03f;
     private static float ballVelocityX = 0.5f;
     private static float ballVelocityY = 1f;
-    private GestureDetector detector;
     private State mState;
-    private OnGestureAdapter gestureAdapter = new OnGestureAdapter() {
-        @Override
-        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-            paddle.move(-distanceX);
-            return super.onScroll(e1, e2, distanceX, distanceY);
-        }
-
-        @Override
-        public boolean onSingleTapUp(MotionEvent e) {
-            onTapUp();
-            return super.onSingleTapUp(e);
-        }
-    };
-    private ASceneFrameCallback frameCallback = new ASceneFrameAdapter() {
-        @Override
-        public void onPreFrame(long sceneTime, double deltaTime) {
-            update(sceneTime, deltaTime);
-        }
-
-        @Override
-        public boolean callPreFrame() {
-            return true;
-        }
-    };
 
     public BreakoutScene(Context context, RajawaliRenderer renderer) {
         super(context, renderer);
-        registerFrameCallback(frameCallback);
-        detector = new GestureDetector(context, gestureAdapter, new Handler(context.getMainLooper()));
     }
 
     @Override
@@ -92,18 +59,20 @@ public class BreakoutScene extends GameScene {
     }
 
     @Override
-    public void onTouchEvent(MotionEvent event) {
-        detector.onTouchEvent(event);
+    public void onScroll(float distanceX, float distanceY) {
+        paddle.move(-distanceX);
     }
 
-    private void update(long sceneTime, double deltaTime) {
+    @Override
+    public void update(long sceneTime, double deltaTime) {
         if (mState == State.ACTIVE) {
             ball.move(deltaTime);
             ball.checkCollision(paddle);
         }
     }
 
-    private void onTapUp() {
+    @Override
+    public void onSingleTapUp() {
         if (mState == State.PAUSE) {
             mState = State.ACTIVE;
         } else if (mState == State.ACTIVE) {

@@ -1,7 +1,5 @@
 package com.papaw.rajawalitest.game2d;
 
-import com.papaw.rajawalitest.game2d.breakout.BreakoutMaterial;
-
 import org.rajawali3d.materials.textures.ATexture;
 import org.rajawali3d.primitives.Plane;
 
@@ -11,8 +9,6 @@ import org.rajawali3d.primitives.Plane;
 
 public class GameObj extends Plane {
     public static final String TAG = GameObj.class.getSimpleName();
-//    protected float mPositionX;
-//    protected float mPositionY;
     protected Color mColor;
     protected ATexture mTexture;
     protected float mVelocityX;
@@ -20,11 +16,9 @@ public class GameObj extends Plane {
 
     public GameObj(float x, float y, float w, float h, Color color, ATexture texture, float vx, float vy) {
         super(w, h, 1, 1, 1);
-//        mPositionX = x;
-//        mPositionY = y;
         mVelocityX = vx;
         mVelocityY = vy;
-        mMaterial = new BreakoutMaterial();
+        mMaterial = new Game2DMaterial();
         mColor = color;
         mTexture = texture;
         if (mColor != null) {
